@@ -1,83 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>No i spoko stronka no kurwa.</title>
+  <head>
+    <title>No i spoko stronka no kurwa.</title>
 
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link href="../static/css/webix.css" rel="stylesheet">
-        <link href="../static/css/skins/flat.css" rel="stylesheet" type="text/css">
-        <script src="../static/js/webix.js"></script>
-        <script src="../static/js/skin.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="../static/css/webix.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/main_page.css" rel="stylesheet" type="text/css">
 
-    </head>
+    <link href="../static/css/skins/flat.css" rel="stylesheet" type="text/css">
+    <script src="../static/js/webix.js"></script>
+    <script src="../static/js/skin.js"></script>
 
-    <body>
-        <div id="areaA" style="margin:auto"></div>
+  </head>
+    <body style="overflow: hidden">
+      <div class="center" id="SignUp">
         <script type="text/javascript" charset="UTF-8">
 
-            webix.ui({
-              view:"form",
-              id: "form",
-              container: "areaA",
-              css: { margin:"auto"},
-              elements: [
-                { view:"text", id: "login", label:'Username', name:"login", invalidMessage: "Login can not be empty."},
-                { view:"text", id: "email", label:'E-mail address', name:"email", invalidMessage: "Incorrect e-mail address." },
-                { view:"text", id: "password", label:'Password', type:"password", name:"password", invalidMessage: "Password can not be empty." },
-                { view:"text", id: "confirm_password", label:'Password - Confirmation', type:"password", name:"confirm_password", invalidMessage: "Confirm password can not be different than passoword."},
-                { view:"checkbox", labelRight:'I accept terms of use', name:"accept", invalidMessage:"Must be checked" },
-                { view:"button", value: "Submit", align:"center", hotkey: "enter", width: 150,
-                    click:function(){
+          webix.ui({
+            view: "form",
+            id: "form",
+            container: "SignUp",
+            elements: [
+              { view:"text", id: "login", label:'Username', name:"login", invalidMessage: "Login can not be empty."},
+              { view:"text", id: "email", label:'E-mail address', name:"email", invalidMessage: "Incorrect e-mail address." },
+              { view:"text", id: "password", label:'Password', type:"password", name:"password", invalidMessage: "Password can not be empty." },
+              { view:"text", id: "confirm_password", label:'Password - Confirmation', type:"password", name:"confirm_password", invalidMessage: "Confirm password can not be different than passoword."},
+              { view:"checkbox", labelRight:'I accept terms of use', name:"accept", invalidMessage:"Must be checked" },
+              { view:"button", value: "Submit", align:"center", hotkey: "enter", width: 150,
+                  click:function(){
 
-                      if (this.getParentView().validate()){
-                        var data = $$("form").getValues();
-                        console.log(data);
-                        webix.ajax()
-                            .post("/signUp", data)
-                            .then(function (result) { if (result) webix.send("/showSignIn", null, "GET"); } )
-                      }
+                    if (this.getParentView().validate()){
+                      var data = $$("form").getValues();
+                      console.log(data);
+                      webix.ajax()
+                          .post("/signUp", data)
+                          .then(function (result) { if (result) webix.send("/showSignIn", null, "GET"); } )
                     }
-                }
-              ],
-              width: 350,
-              top: 20,
-              margin: 3,
-              rules:{
-                "email": webix.rules.isEmail,
-                "login": webix.rules.isNotEmpty,
-                "password": webix.rules.isNotEmpty,
-                "accept": webix.rules.isChecked,
-                "confirm_password": function(value){
-                    return !(value != $$('password').getValue());
-                }
-
-              },
-              elementsConfig:{
-                labelPosition: "top",
-                labelWidth: 140,
-                bottomPadding: 18
-
+                  }
+              }
+            ],
+            width: 350,
+            top: 20,
+            margin: 3,
+            rules:{
+              "email": webix.rules.isEmail,
+              "login": webix.rules.isNotEmpty,
+              "password": webix.rules.isNotEmpty,
+              "accept": webix.rules.isChecked,
+              "confirm_password": function(value){
+                  return !(value != $$('password').getValue());
               }
 
-            });
-
+            },
+            elementsConfig:{
+              labelPosition: "top",
+              labelWidth: 140,
+              bottomPadding: 18
+            }
+          });
 
         </script>
-      <footer class="footer">
-        <p><script type="text/javascript" charset="UTF-8">
+      </div>
+      <footer class="footer" id="footer">
+        <script type="text/javascript" charset="UTF-8">
 
-            var myformat = webix.Date.dateToStr("%Y");
-            var text = myformat(new Date());
+          var myformat = webix.Date.dateToStr("%Y");
+          var text = myformat(new Date());
 
-            webix.ui({view:"form", elements: [{view:"abslayout", cells: [
-                {
+          webix.ui({container:"footer",
                     label: "Sikora INC. " + text,
                     view: "label",
-                    left: 10,
                     autowidth: true
-                }]}]});
+                    });
 
-        </script></p>
+        </script>
       </footer>
   </body>
 </html>

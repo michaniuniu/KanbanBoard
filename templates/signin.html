@@ -7,39 +7,38 @@
         <link href="../static/css/webix.css" rel="stylesheet" type="text/css">
         <link href="../static/css/skins/flat.css" rel="stylesheet" type="text/css">
         <script src="../static/js/webix.js"></script>
-
     </head>
 
     <body>
-        <div id="areaA" style="margin:auto"></div>
+        <div class="center" id="areaA"></div>
         <script type="text/javascript" charset="utf-8">
-webix.ui({
-    container:"areaA",
-    view:"form",
-    id: "form",
-    scroll: false,
-    width:300,
-    css: { margin:"auto"},
-    elements: [
-        { view:"text", id:"login", name:"login", placeholder:"Login", invalidMessage: "Login can not be empty." },
-        { view:"text", id:"password", name:"password", type:"password", placeholder:"Password", invalidMessage: "Password can not be empty."},
-        { view:"button", value: "Submit", align:"center", hotkey: "enter", width: 150,
-            click:function(){
-                if (this.getParentView().validate()){
-                    var data = $$("form").getValues();
-                    console.log(data);
-                    webix.ajax()
-                        .post("/validateLogin", data)
-                        .then(function (result) { if (result) webix.send("/userHome", null, "GET"); } )
-                    };
-        }
-       }
-    ],
-    rules:{
-        "login": webix.rules.isNotEmpty,
-        "password": webix.rules.isNotEmpty
-    }
-    });
+            webix.ui({
+                container:"areaA",
+                view:"form",
+                id: "form",
+                scroll: false,
+                width:300,
+                css: { margin:"auto"},
+                elements: [
+                    { view:"text", id:"login", name:"login", placeholder:"Login", invalidMessage: "Login can not be empty." },
+                    { view:"text", id:"password", name:"password", type:"password", placeholder:"Password", invalidMessage: "Password can not be empty."},
+                    { view:"button", value: "Submit", align:"center", hotkey: "enter", width: 150,
+                        click:function(){
+                            if (this.getParentView().validate()){
+                                var data = $$("form").getValues();
+                                console.log(data);
+                                webix.ajax()
+                                    .post("/validateLogin", data)
+                                    .then(function (result) { if (result) webix.send("/userHome", null, "GET"); } )
+                                };
+                    }
+                   }
+                ],
+                rules:{
+                    "login": webix.rules.isNotEmpty,
+                    "password": webix.rules.isNotEmpty
+                }
+                });
 
         </script>
     </body>

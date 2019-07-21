@@ -20,6 +20,10 @@
 }
 body {
   -webkit-tap-highlight-color: transparent !important;
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
 }
 /*
 	webix_layout_{type}
